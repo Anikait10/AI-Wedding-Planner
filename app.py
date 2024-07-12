@@ -2,11 +2,15 @@ import streamlit as st
 import asyncio
 from aiconfig import AIConfigRuntime
 from openai import OpenAI
-client = OpenAI()
+from dotenv import load_dotenv
+import os
 
-# Securely load your OpenAI API key
-# It is critical to keep your API key secure and not hard-coded in your script.
-openai_api_key = "YOUR_API_KEY_HERE"
+load_dotenv()
+
+# Securely load your OpenAI API key from the environment variables
+openai_api_key = os.getenv("OPENAI_API_KEY")
+
+client = OpenAI()
 
 def get_wedding_planning_advice(location, budget, guests, food_preferences, style, functions, season, query):
     # Initialize OpenAI API client with your API key
@@ -44,13 +48,18 @@ async def main():
         query = st.text_area("What do you need help with? For example, 'I'm looking for rustic wedding theme ideas.'")
         submit_button = st.form_submit_button("Get Advice")
         
-        
         if submit_button:
             advice = get_wedding_planning_advice(location, budget, guests, food_preferences, style, functions, season, query)
             structured_advice = advice.split('\n')
             structured_advice = [line for line in structured_advice if line.strip() != '']
+
+            st.subheader("Wedding Planning Advice")
             for item in structured_advice:
-                st.markdown(f"- {item}")
+                if item.startswith("- "):
+                    st.markdown(f"- {item[2:].strip()}")
+                else:
+                    st.write(item.strip())
+        
     
     # print("hey I ot here")
     # config = AIConfigRuntime.load('test_wedding planner.aiconfig.json')
