@@ -1,6 +1,6 @@
 # AI Wedding Planner
 
-This repository contains a Streamlit-based web application that leverages OpenAI's GPT-3.5-turbo model to provide wedding planning advice. Users can input their wedding details such as location, budget, and specific queries to receive tailored recommendations.
+This repository contains a Streamlit-based web application that leverages OpenAI's GPT-4 model to provide wedding planning advice. Users can input their wedding details such as location, budget, and specific queries to receive tailored recommendations.
 
 ## Features
 
